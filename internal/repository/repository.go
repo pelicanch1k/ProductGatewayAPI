@@ -6,10 +6,10 @@ import (
 )
 
 type Products interface {
-	Create(id int, name string, price float64) error
-	Update(id int, name string, price float64) error
+	Create(product product.Product) (int, error)
+	Update(product product.Product, id int) error
 	Delete(id int) error
-	Get(id int) product.Product
+	Get(id int) (product.Product, error)
 	GetAll() []product.Product
 }
 
