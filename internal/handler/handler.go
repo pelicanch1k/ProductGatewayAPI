@@ -19,11 +19,11 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	products := router.Group("/products/")
 	{
 		products.POST("", h.create)
-		products.GET("", h.get)
+		products.GET("", h.getAll)
 
 		products.PUT(":id", h.update)
 		products.DELETE(":id", h.delete)
-		products.GET(":id", h.getAll)
+		products.GET(":id", h.get)
 	}
 
 	return router

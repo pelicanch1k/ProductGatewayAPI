@@ -29,6 +29,6 @@ func (p *ProductsService) Get(id int) (product.Product, error) {
 	return p.repo.Get(id)
 }
 
-func (p *ProductsService) GetAll() []product.Product {
+func (p *ProductsService) GetAll() ([]product.Product, error) {
 	return p.repo.GetAll()
 }

@@ -67,9 +67,28 @@ func (h *Handler) delete(c *gin.Context) {
 }
 
 func (h *Handler) get(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		newErrorResponse(c, http.StatusBadRequest, "invalid id param")
+		return
+	}
+
+	product, err := h.services.Products.Get(id)
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, product)
 
 }
 
 func (h *Handler) getAll(c *gin.Context) {
+	products, err := h.services.Products.GetAll()
+	if err != nil {
+		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
+	}
 
+	c.JSON(http.StatusOK, products)
 }

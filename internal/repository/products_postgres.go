@@ -62,6 +62,13 @@ func (p *ProductsPostgres) Get(id int) (product.Product, error) {
 	return product, nil
 }
 
-func (p *ProductsPostgres) GetAll() []product.Product {
-	return []product.Product{}
+func (p *ProductsPostgres) GetAll() ([]product.Product, error) {
+	var products []product.Product
+	query := "SELECT * FROM products"
+
+	if err := p.db.Select(&products, query); err != nil {
+		return products, err
+	}
+
+	return products, nil
 }

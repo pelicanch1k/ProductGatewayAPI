@@ -10,7 +10,7 @@ type Products interface {
 	Update(product product.Product, id int) error
 	Delete(id int) error
 	Get(id int) (product.Product, error)
-	GetAll() []product.Product
+	GetAll() ([]product.Product, error)
 }
 
 type Service struct {
