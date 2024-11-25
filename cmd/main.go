@@ -4,23 +4,20 @@ import (
 	"context"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	product "github.com/pelicanch1k/rest-api"
-	"github.com/pelicanch1k/rest-api/internal/handler"
-	"github.com/pelicanch1k/rest-api/internal/repository"
-	"github.com/pelicanch1k/rest-api/internal/service"
+	product "github.com/pelicanch1k/ProductGatewayAPI"
+	"github.com/pelicanch1k/ProductGatewayAPI/internal/handler"
+	"github.com/pelicanch1k/ProductGatewayAPI/internal/repository"
+	"github.com/pelicanch1k/ProductGatewayAPI/internal/service"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
 )
 
 func main() {
-	log.SetOutput(os.Stdout)
-
 	if err := initConfig(); err != nil {
-		log.Fatalf("error init configs: %s", err.Error())
+		logrus.Fatalf("error init configs: %s", err.Error())
 	}
 
 	if err := godotenv.Load(); err != nil {

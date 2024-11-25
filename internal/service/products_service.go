@@ -1,8 +1,8 @@
 package service
 
 import (
-	product "github.com/pelicanch1k/rest-api"
-	"github.com/pelicanch1k/rest-api/internal/repository"
+	"github.com/pelicanch1k/ProductGatewayAPI/internal/repository"
+	product "github.com/pelicanch1k/ProductGatewayAPI/structs"
 )
 
 type ProductsService struct {

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/pelicanch1k/rest-api/internal/service"
+	"github.com/pelicanch1k/ProductGatewayAPI/internal/service"
 )
 
 type Handler struct {
@@ -16,7 +16,13 @@ func NewHandler(services *service.Service) *Handler {
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
-	products := router.Group("/products/")
+	auth := router.Group("/auth/")
+	{
+		auth.POST("sign-up", h.signUp)
+		auth.POST("sign-in", h.signIn)
+	}
+
+	products := router.Group("/products/", h.userIdentity)
 	{
 		products.POST("", h.create)
 		products.GET("", h.getAll)

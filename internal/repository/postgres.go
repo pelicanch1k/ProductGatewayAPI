@@ -14,15 +14,26 @@ type Config struct {
 	SSLMode  string
 }
 
-func createTable(db *sqlx.DB) {
+func createProduct(db *sqlx.DB) {
 	scheme := `
 CREATE TABLE IF NOT EXISTS products (
-   id serial not null unique,
+   id serial PRIMARY KEY not null unique,
    name varchar(255) not null unique,
    price integer not null default 0
 )
 `
 
+	db.MustExec(scheme)
+}
+
+func createUser(db *sqlx.DB) {
+	scheme := `
+create table if not exists users (
+    id serial PRIMARY KEY not null unique,
+    username varchar(20) not null unique,
+    password_hash varchar(255) not null
+)
+`
 	db.MustExec(scheme)
 }
 
@@ -38,7 +49,8 @@ func NewPostgresDB(cfg Config) (*sqlx.DB, error) {
 		return nil, err
 	}
 
-	createTable(db)
+	createProduct(db)
+	createUser(db)
 
 	return db, nil
 }
