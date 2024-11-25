@@ -2,20 +2,15 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	product "github.com/pelicanch1k/rest-api"
+	"github.com/pelicanch1k/ProductGatewayAPI/structs"
 	"net/http"
 	"strconv"
 )
 
 func (h *Handler) create(c *gin.Context) {
-	var input product.Product
+	var input structs.Product
 	if err := c.BindJSON(&input); err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
-		return
-	}
-
-	if input.Id == 0 {
-		newErrorResponse(c, http.StatusInternalServerError, "id is required")
 		return
 	}
 
@@ -37,7 +32,7 @@ func (h *Handler) update(c *gin.Context) {
 		return
 	}
 
-	var input product.Product
+	var input structs.Product
 	if err := c.BindJSON(&input); err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return

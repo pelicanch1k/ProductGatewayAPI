@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
+	"net/http"
 )
 
 type errorResponse struct {
@@ -15,5 +16,16 @@ type statusResponse struct {
 
 func newErrorResponse(c *gin.Context, statusCode int, message string) {
 	logrus.Error(message)
-	c.AbortWithStatusJSON(statusCode, errorResponse{message})
+	if errorHandler(c, message) {
+		c.AbortWithStatusJSON(statusCode, errorResponse{message})
+	}
+}
+
+func errorHandler(c *gin.Context, message string) bool {
+	if message == "pq: duplicate key value violates unique constraint \"users_username_key\"" {
+		c.AbortWithStatusJSON(http.StatusBadRequest, errorResponse{"username is already taken"})
+		return false
+	}
+
+	return true
 }
