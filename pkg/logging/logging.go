@@ -42,19 +42,19 @@ func GetLogger() *Logger {
 	return &Logger{e}
 }
 
-func Init() {
+func init() {
 	log := logrus.New()
-
-	log.SetReportCaller(true)
 
 	log.Formatter = &logrus.TextFormatter{
 		CallerPrettyfier: func(frame *runtime.Frame) (function string, file string) {
 			filename := path.Base(frame.File)
 			return fmt.Sprintf("%s()", frame.Function), fmt.Sprintf("%s:%d", filename, frame.Line)
 		},
-		DisableColors: false,
+		DisableColors: true,
 		FullTimestamp: true,
 	}
+
+	log.SetReportCaller(true)
 
 	//err := os.MkdirAll("logs", 0644)
 	//if err != nil {
@@ -74,4 +74,8 @@ func Init() {
 	})
 
 	log.SetLevel(logrus.DebugLevel)
+
+	e = logrus.NewEntry(log)
+
+	log.Info("Logger initialized")
 }

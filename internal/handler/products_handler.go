@@ -9,6 +9,7 @@ import (
 
 func (h *Handler) create(c *gin.Context) {
 	var input structs.Product
+
 	if err := c.BindJSON(&input); err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
