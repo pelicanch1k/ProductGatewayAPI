@@ -8,7 +8,7 @@ import (
 	"github.com/pelicanch1k/ProductGatewayAPI/internal/handler"
 	"github.com/pelicanch1k/ProductGatewayAPI/internal/repository"
 	"github.com/pelicanch1k/ProductGatewayAPI/internal/service"
-	"github.com/sirupsen/logrus"
+	"github.com/pelicanch1k/ProductGatewayAPI/pkg/logging"
 	"github.com/spf13/viper"
 	"os"
 	"os/signal"
@@ -16,6 +16,8 @@ import (
 )
 
 func main() {
+	logrus := logging.GetLogger()
+
 	if err := initConfig(); err != nil {
 		logrus.Fatalf("error init configs: %s", err.Error())
 	}

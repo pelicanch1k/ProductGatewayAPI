@@ -43,6 +43,10 @@ func (h *Handler) userIdentity(c *gin.Context) {
 	}
 }
 
+func (h *Handler) logging(c *gin.Context) {
+	h.logger.Info(c.Request.URL.Path)
+}
+
 func getUserName(c *gin.Context) (int, error) {
 	userId, ok := c.Get("userId")
 	if !ok {
