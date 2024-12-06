@@ -15,6 +15,16 @@ import (
 	"syscall"
 )
 
+// @title Product API
+// @version 1.0
+// @description API Server for ProductGatewayAPI
+
+// @host localhost:80
+// @BasePath /
+
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	logrus := logging.GetLogger()
 

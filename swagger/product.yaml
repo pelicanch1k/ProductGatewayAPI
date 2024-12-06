@@ -1,0 +1,40 @@
+jaopenapi: 3.0.1
+info:
+  title: Product API
+  description: API для работы с продуктами
+  version: 1.0.0
+servers:
+  - url: http://localhost:80
+paths:
+  /products/:
+    get:
+      summary: Returns a list of all products
+      description: JWT Token
+
+      security:
+        - bearerAuth: []
+
+      responses:
+        '200':
+          description: A JSON array of task IDs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

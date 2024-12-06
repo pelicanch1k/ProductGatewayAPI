@@ -4,6 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/pelicanch1k/ProductGatewayAPI/internal/service"
 	"github.com/pelicanch1k/ProductGatewayAPI/pkg/logging"
+
+	"github.com/swaggo/files"
+	"github.com/swaggo/gin-swagger"
+
+	_ "github.com/pelicanch1k/ProductGatewayAPI/docs"
 )
 
 type Handler struct {
@@ -18,20 +23,22 @@ func NewHandler(services *service.Service) *Handler {
 func (h *Handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	auth := router.Group("/auth/", h.logging)
 	{
 		auth.POST("sign-up", h.signUp)
 		auth.POST("sign-in", h.signIn)
 	}
 
-	products := router.Group("/products/", h.logging, h.userIdentity)
+	products := router.Group("/products", h.logging, h.userIdentity)
 	{
 		products.POST("", h.create)
 		products.GET("", h.getAll)
 
-		products.PUT(":id", h.update)
-		products.DELETE(":id", h.delete)
-		products.GET(":id", h.get)
+		products.PUT("/", h.update)
+		products.DELETE("/", h.delete)
+		products.GET("/", h.getById)
 	}
 
 	return router

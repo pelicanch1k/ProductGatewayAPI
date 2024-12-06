@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
+	"github.com/pelicanch1k/ProductGatewayAPI/pkg/logging"
 	"net/http"
 )
 
@@ -15,7 +15,7 @@ type statusResponse struct {
 }
 
 func newErrorResponse(c *gin.Context, statusCode int, message string) {
-	logrus.Error(message)
+	logging.GetLogger().Error(message)
 	if errorHandler(c, message) {
 		c.AbortWithStatusJSON(statusCode, errorResponse{message})
 	}
