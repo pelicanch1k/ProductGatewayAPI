@@ -64,8 +64,8 @@ func (p *ProductsPostgres) Get(id int) (structs.Product, error) {
 
 func (p *ProductsPostgres) GetAll() ([]structs.Product, error) {
 	var products []structs.Product
-	query := "SELECT * FROM products"
 
+	query := "SELECT * FROM products"
 	if err := p.db.Select(&products, query); err != nil {
 		return products, err
 	}

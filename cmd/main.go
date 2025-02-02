@@ -78,6 +78,6 @@ func main() {
 
 func initConfig() error {
 	viper.AddConfigPath("configs")
-	viper.SetConfigName("local")
+	viper.SetConfigName("prod")
 	return viper.ReadInConfig()
 }
